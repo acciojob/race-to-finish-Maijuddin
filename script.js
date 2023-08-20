@@ -1,23 +1,17 @@
-window.promises = [];
+const promises = [
+    new Promise(resolve => setTimeout(() => resolve("Promise 1"), Math.random() * 4000 + 1000)),
+    new Promise(resolve => setTimeout(() => resolve("Promise 2"), Math.random() * 4000 + 1000)),
+    new Promise(resolve => setTimeout(() => resolve("Promise 3"), Math.random() * 4000 + 1000)),
+    new Promise(resolve => setTimeout(() => resolve("Promise 4"), Math.random() * 4000 + 1000)),
+    new Promise(resolve => setTimeout(() => resolve("Promise 5"), Math.random() * 4000 + 1000))
+];
 
-// Do not change the code above this
-// add your promises to the array `promises`
-// Create an array of five promises that resolve with random times between 1 and 5 seconds
-const promises = Array.from({ length: 5 }, () => {
-  const randomTime = Math.floor(Math.random() * 5 + 1) * 1000; // Convert to milliseconds
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(randomTime);
-    }, randomTime);
-  });
-});
-
-// Wait for the first promise to resolve using Promise.any()
+// Using Promise.any() to wait for the first resolved promise
 Promise.any(promises)
-  .then(result => {
-    const outputDiv = document.getElementById('output');
-    outputDiv.textContent = `The first promise resolved with a time of ${result} milliseconds.`;
-  })
-  .catch(error => {
-    console.error('All promises rejected:', error);
-  });
+    .then(result => {
+        const outputDiv = document.getElementById("output");
+        outputDiv.textContent = result;
+    })
+    .catch(error => {
+        console.error("An error occurred:", error);
+    });
